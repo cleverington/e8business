@@ -1,0 +1,102 @@
+/* Postscript Custom Theming */
+.region-postscript-first .region-inner,
+.region-postscript-second .region-inner {
+    height: 100%;
+}
+.region-postscript-first .region-inner .block-aggregator-feed-1,
+.region-postscript-second .region-inner .block-block-1 {
+    height: 100%;
+}
+.block-aggregator-feed-1, .block-block-1 {
+
+}
+.region-postscript-second .content,
+.region-postscript-first .content {
+    padding: 5px;
+}
+
+.custom-postscript-wrapper {
+}
+
+.custom-postscript-zone {
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+.region-postscript-first .content, .region-postscript-second .content,
+.region-postscript-third .content, .region-postscript-fourth .content, 
+.region-sidebar-second .content  {
+
+}
+
+.custom-postscript-first-region, .custom-postscript-second-region, .custom-postscript-third-region, .custom-postscript-fourth-region, .block-aggregator-feed-1 {
+  background-color: #4d4d4d;
+  -webkit-border-radius: 5px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+     -moz-border-radius: 5px; /* FF1-3.6 */
+          border-radius: 5px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+  margin-bottom: 10px;
+  padding: 10px 0px;
+  
+  -webkit-box-shadow: 2px 3px 5px #4d4d4d; /* Saf3.0+, Chrome */
+     -moz-box-shadow: 2px 3px 5px #4d4d4d; /* FF3.5 - 3.6 */
+          box-shadow: 2px 3px 5px #4d4d4d; /* Opera 10.5, IE9, FF4+, Chrome 10+ */
+
+  height: 100%;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,86 @@
+<?php
+
+/**
+ *
+ *  Net Tuts based Facebook 'Like' button plugin
+ *
+ *
+ *
+ */
+ 
+ 
+/** 
+ * Implements hook_node_view(). 
+ * 
+ * Returns the renderable view of our nodes (pages or articles). 
+ * We want to moddify the code so that we add the like button 
+ * to our pages. 
+ */  
+    function facebook_node_view($node, $view_mode = 'full', $langcode)  
+    {  
+      $node->content['facebook'] = array(  
+        '#markup' => theme('facebook_add_like_button'),  
+      );  
+    }  
+
+/**
+ *  Implements hook_theme().
+ *
+ *  Just to let Drupal know about our theme function
+ *
+ */  
+function facebook_theme() 
+{
+  
+  return array( 'facebook_add_like_button' => array('variables' => NULL), );
+
+}  
+	
+	
+	
+/** 
+ * Function to add the desired code to our page. 
+ */  
+    function theme_facebook_add_like_button()  
+    {  
+      $output = '<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=267276653302088&amp;xfbml=1"></script><fb:like href="e8business.biz/home/" send="true" width="450" show_faces="false" font="arial"></fb:like>';  
+      
+      return $output;  
+    }  
+
+/** 
+ * Implements hook_block_info(). 
+ * 
+ * Using this hook we declare to Drupal that our module 
+ * provides one block identified as facebook 
+ */  
+ 
+function facebook_block_info()  
+{  
+  $block['facebook'] = array(   
+    'info' => t('Facebook Recent Activity'),  
+  // leave the other properties of the block default  
+  );  
+  
+  return $block;  
+} 
+
+    /** 
+     * Implements hook_block_view(). 
+     * 
+     * Returns the renderable view of our block. It takes 
+     * the configured values of facebook recent activity 
+     * social plugin 
+     */  
+    function facebook_block_view($delta = '')  
+    {  
+      switch($delta) {  
+      case 'facebook' :  
+        $block['subject'] = t('Facebook recent activity');  
+        $block['content'] = '<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"> </script> <fb:activity site="" width="300" height="300" header="true" font="" border_color="" recommendations="false"> </fb:activity>';  
+      }  
+      
+      return $block;  
+    }  
+
+

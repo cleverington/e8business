@@ -1,0 +1,12 @@
+name = Facebook Recent Activity
+description = Retrieves and displays in a block the recent activity data from Facebook.
+package = "Nettuts+ Drupal Module Tutorial"
+core = 7.x
+files[] = facebook.module
+
+;
+;  Custom Facebook Plugin Module based on net tuts+ tutorial:
+;
+;    http://net.tutsplus.com/tutorials/create-a-facebook-recent-activity-drupal-module/
+;
+;

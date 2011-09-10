@@ -1,0 +1,20 @@
+/* Views Custom Theming */
+
+/* About Me, Resume / CV View */
+
+.aboutme {
+
+    padding: 5px 0;
+}
+
+.aboutme h3 {
+  margin: 0 0 0 5px;
+  padding: 5px 0;
+}
+
+.aboutme ul {
+    margin-bottom: 5px;
+}
+
+
+

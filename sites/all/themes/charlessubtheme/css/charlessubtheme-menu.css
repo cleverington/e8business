@@ -1,0 +1,80 @@
+.menu {
+  margin: 0;
+  padding: 0;
+}
+
+.menu li {
+  list-style: none;  
+}
+
+
+/* Custom CSS Region for first
+*  and second Sidebar's
+*
+*
+*
+*/
+
+.custom-content-sidebar-first-region {
+    
+}
+
+.custom-content-sidebar-second-region {
+
+}
+
+
+/* Add Spacing to Menu Items */
+.block-views-drupal-rules-block .content, .block-system-navigation .menu, .block-block-1 .content, .block-block-4 .content, .block-views-latest-updates-block .content {
+    margin-left: 15px;
+    margin-right: 5px;
+    height: 100%;
+}
+
+/* Add pretty boxes to menu items */
+
+.block-views-drupal-rules-block, .block-system-navigation, .block-block-1, .block-block-4, .block-views-latest-updates-block {
+  background-color: #4d4d4d;
+  -webkit-border-radius: 5px; /* Saf3-4, iOS 1-3.2, Android <1.6 */
+     -moz-border-radius: 5px; /* FF1-3.6 */
+          border-radius: 5px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
+  margin-bottom: 10px;
+  margin-top: 10px;
+  padding: 10px;
+  
+  -webkit-box-shadow: 2px 3px 5px #4d4d4d; /* Saf3.0+, Chrome */
+     -moz-box-shadow: 2px 3px 5px #4d4d4d; /* FF3.5 - 3.6 */
+          box-shadow: 2px 3px 5px #4d4d4d; /* Opera 10.5, IE9, FF4+, Chrome 10+ */
+
+  height: 100%;
+
+}
+
+
+.block-system-navigation .menu {
+  margin-left: 15px;
+}
+
+/* Make those rules SHINE! */
+.block-views-drupal-rules-block .views-field-title  {
+    color: #33CCCC;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0 0 25px #EEEEEE;
+}
+
+.block-views-drupal-rules-block .views-field-field-blurb {
+    color: #33CCCC;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0 0 25px #EEEEEE;
+}
+
+
+
+
+
+
+
