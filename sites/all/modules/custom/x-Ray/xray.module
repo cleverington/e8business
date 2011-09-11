@@ -8,15 +8,18 @@
   /*
    *
    *  Implements hook_form_alter() to show each form's identifier.
-   *
+   *  Secondary, implements the debug function.
    */
   function xray_form_alter(&$form, &$form_state, $form_id) {
     $form['xray_display_form_id'] = array(
       '#type' => 'item',
       '#title' => t('Internal Form ID'),
       '#markup' => $form_id,
+      '#theme-attributes' => array('container__xray__form'),
+      '#attributes' => array('class' => array('xray')),
       '#weight' => -100,
     );
+    debug($form, $form_id, TRUE);
   }
 
   /**
@@ -30,3 +33,5 @@
     }
   }
 
+
+  
