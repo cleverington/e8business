@@ -1,20 +1,32 @@
 <?php
-/**
- *  @file
- *  Helps site builders and module developers investigate a site.
- *
- */
+  /**
+   *     @file
+   *  Helps site builders and module developers investigate a site.
+   *
+   */
 
-/*
- *
- *  Implements hook_form_alter() to show each form's identifier.
- *
- */
-function xray_form_alter(&$form, &$form_state, $form_id) {
+  /*
+   *
+   *  Implements hook_form_alter() to show each form's identifier.
+   *
+   */
+  function xray_form_alter(&$form, &$form_state, $form_id) {
     $form['xray_display_form_id'] = array(
-        '#type' => 'item',
-        '#title' => t('Internal Form ID'),
-        '#markup' => $form_id,
-        '#weight' => -100,
+      '#type' => 'item',
+      '#title' => t('Internal Form ID'),
+      '#markup' => $form_id,
+      '#weight' => -100,
     );
-}
+  }
+
+  /**
+   *
+   * Implements hook_help()
+   *
+   */
+  function xray_help($path, $arg) {
+    if ($path == 'admin/structure') {
+      return t('This site has stuff!');
+    }
+  }
+
