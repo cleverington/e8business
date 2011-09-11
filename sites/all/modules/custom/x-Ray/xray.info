@@ -1,0 +1,5 @@
+name = X-ray
+description = Shows internal structures and connections of the web site.
+core = 7.x
+package = "Custom Developed Modules"
+files[] = xray.module
