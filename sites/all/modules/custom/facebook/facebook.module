@@ -34,15 +34,13 @@ function facebook_theme()
   
   return array( 'facebook_add_like_button' => array('variables' => NULL), );
 
-}  
-	
-	
-	
+}  	
 /** 
  * Function to add the desired code to our page. 
  */  
     function theme_facebook_add_like_button()  
     {  
+      
       $output = '<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=267276653302088&amp;xfbml=1"></script><fb:like href="e8business.biz/home/" send="true" width="450" show_faces="false" font="arial"></fb:like>';  
       
       return $output;  

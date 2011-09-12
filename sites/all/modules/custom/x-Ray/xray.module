@@ -47,7 +47,7 @@
     $num_enabled = 0;
     $summaries = array();
     //Iterate through each theme, gathering data that you care about.
-    foreach ($thmes as $themename => $theme) {
+    foreach ($themes as $themename => $theme) {
         // Do not gather statistics for hidden themes, but keep a count of them.
         if (isset($theme->info['hidden']) && $theme->info['hidden']) {
             $num_hidden++;
@@ -71,7 +71,7 @@
     
     /**
    *
-   * Hep text for the admin/appearance page.
+   * Help text for the admin/appearance page.
    *
    */
   function _xray_help_admin_appearance() {
@@ -84,6 +84,53 @@
     );
     return theme('xray_help', array('text' => $output));
   }
-
-
-  
+    /**
+   *
+   * Implements hook_menu for xray.module
+   *
+   */
+    function xray_menu() {
+        $items = array();
+        // Create xray Overview page on admin/reports
+        $items['admin/reports/xray'] = array(
+            'title' => 'X-ray technical site overview',
+            'description' => 'See the internal structure of this site.',
+            'page callback' => 'xray_overview_page',
+            'access callback' => TRUE,
+        );
+        $items['admin/reports/xray/overview'] = array(
+            'title' => 'Overview',
+            'description' => "Technical overview of the site's internals.",
+            'type' => MENU_DEFAULT_LOCAL_TASK,
+            'weight' => -10,
+        );
+        // Set permissions
+        $items['admin/reports/xray/permissions'] = array (
+            'title' => 'Permissions',
+            'page callback' => 'xray_permission_names_page',
+            'type' => MENU_LOCAL_TASK,
+            'weight' => 10,
+            'access arguments' => array('access site reports'),
+        );
+        return $items;    
+    }
+    
+    /**
+     *
+     * Implements function for xray_menu
+     *
+     */
+    function xray_overview_page() {
+        return 'test';
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
