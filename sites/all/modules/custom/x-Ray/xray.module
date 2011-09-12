@@ -124,13 +124,67 @@
         return 'test';
     }
     
+    /**
+     *
+     * Display the X-ray permission names page.
+     *
+     */
+    function xray_permission_names_page() {
+        $names = xray_permission_names();
+        return theme('xray_permission_names', array('names' => $names));
+    }
     
+    /**
+     *
+     * Collect permission names.
+     *
+     */
+    function xray_permission_names() {
+        $names = array();
+        $permissions = module_invoke_all('permission');
+        // Extract just the permission title from each permission array.
+        foreach ($permissions as $machine_name => $permission) {
+            $names[$machine_name] = $permission['title'];
+        }
+        // Put permission names in alphabetical order by title.
+        asort($names);
+        return $names;
+    }
     
+    /**
+     *
+     * Returns HTML of permission machine and display ames in a table.
+     *
+     * @param $variables
+     * An associative array containing:
+     * - names: Array of human-readable names keyed by machine names.
+     *
+     * @ingroup themeable
+     *
+     */
+    function theme_xray_permission_names($variables) {
+        $names = $variables['names'];
+        $output = '';
+        $header = array(t('Permission title'), t*('Permission machine name'));
+        $rows = array();
+        foreach ($names as $machine_name => $title) {
+            $rows[] = array($title, $machine_name);
+        }
+        $output .= theme('table', array('header' => $header, 'rows' => $rows, 'attributes' => array('id' => 'xray-permission-names')));
+        return $output;
+    }
     
-    
-    
-    
-    
-    
+    /**
+     *
+     * Implements hook_theme().
+     *
+     */
+    function xray_theme() {
+        return array(
+            'xray_permission_names' => array(
+                'render element' => 'names',
+            ),
+        );
+    }
     
     
