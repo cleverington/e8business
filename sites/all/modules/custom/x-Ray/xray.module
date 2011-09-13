@@ -1,15 +1,15 @@
 <?php
-  /**
-   *     @file
-   *  Helps site builders and module developers investigate a site.
-   *
-   */
+/**
+* @file
+* Helps site builders and module developers investigate a site.
+*
+*/
 
-  /*
-   *
-   *  Implements hook_form_alter() to show each form's identifier.
-   *  Secondary, implements the debug function.
-   */
+/**
+*
+* Implements hook_form_alter() to show each form's identifier.
+* Secondary, implements the debug function.
+*/
   function xray_form_alter(&$form, &$form_state, $form_id) {
     $form['xray_display_form_id'] = array(
       '#type' => 'item',
@@ -20,11 +20,11 @@
       '#weight' => -100,
     );
   }
-  /**
-   *
-   * Implements hook_help()
-   *
-   */
+/**
+*
+* Implements hook_help()
+*
+*/
   function xray_help($path, $arg) {
     if ($path == 'admin/structure') {
       return t('This site has stuff!');
@@ -34,11 +34,11 @@
             return _xray_help_admin_appearance();
     }
   }
-    /**
-   *
-   * Fetch information about themes
-   *
-   */
+/**
+*
+* Fetch information about themes
+*
+*/
   function xray_stats_enabled_themes() {
     $themes = list_themes();
     $num_themes = count($themes);
@@ -69,29 +69,29 @@
     }
   }
     
-    /**
-   *
-   * Help text for the admin/appearance page.
-   *
-   */
+/**
+*
+* Help text for the admin/appearance page.
+*
+*/
   function _xray_help_admin_appearance() {
     $output = '';
     $data = xray_stats_enabled_themes();
     $output .= format_plural(
         $data['num_hidden'],
         'There is one hidden theme.',
-        'There are @count hidden themes.'        
+        'There are @count hidden themes.'
     );
     return theme('xray_help', array('text' => $output));
   }
-    /**
-   *
-   * Implements hook_menu for xray.module
-   *
-   */
+/**
+*
+* Implements hook_menu for xray.module
+*
+*/
     function xray_menu() {
         $items = array();
-        // Create xray Overview page on admin/reports
+        // Create xray Overview page (and tab) on admin/reports
         $items['admin/reports/xray'] = array(
             'title' => 'X-ray technical site overview',
             'description' => 'See the internal structure of this site.',
@@ -104,7 +104,7 @@
             'type' => MENU_DEFAULT_LOCAL_TASK,
             'weight' => -10,
         );
-        // Set permissions
+        // Create 'Permissions' tab within module overview.
         $items['admin/reports/xray/permissions'] = array (
             'title' => 'Permissions',
             'page callback' => 'xray_permission_names_page',
@@ -112,79 +112,149 @@
             'weight' => 10,
             'access arguments' => array('access site reports'),
         );
-        return $items;    
+        return $items;
     }
     
-    /**
-     *
-     * Implements function for xray_menu
-     *
-     */
+/**
+*
+* Implements function for xray_menu
+*
+*/
     function xray_overview_page() {
         return 'test';
     }
-    
-    /**
-     *
-     * Display the X-ray permission names page.
-     *
-     */
+
+
+/**
+*
+* Display permission machine and display names in a table.
+*
+* @return
+*   An array as expcted by drupal_render().
+*
+*/
     function xray_permission_names_page() {
-        $names = xray_permission_names();
-        return theme('xray_permission_names', array('names' => $names));
+      $build = array();
+      // Gather data, an array of human-readable names keyed by machine names.
+      $names = xray_permission_names();
+      // Format the data as a table.
+      $header = array(t('Permission title'), t('Permission machine name'));
+      $rows = array();
+      foreach ($names as $machine_name => $title) {
+        $rows[] = array($title, $machine_name);
+      }
+      $build['names_table'] = array(
+        '#theme' => 'table__xray__permission_names',
+        '#header' => $header,
+        '#rows' => $rows,
+        '#attributes' => array('id' => 'xray-permission-names')
+      );
+      return $build;
     }
-    
-    /**
-     *
-     * Collect permission names.
-     *
-     */
+/**
+ *
+ * Collect Permission names.
+ *
+ */
     function xray_permission_names() {
-        $names = array();
-        $permissions = module_invoke_all('permission');
-        // Extract just the permission title from each permission array.
-        foreach ($permissions as $machine_name => $permission) {
-            $names[$machine_name] = $permission['title'];
-        }
-        // Put permission names in alphabetical order by title.
-        asort($names);
-        return $names;
+      $names = array();
+      $permissions = module_invoke_all('permission');
+      //  Extract just the permission title from each permission array.
+      foreach ($permissions as $machine_name => $permission) {
+        $names[$machine_name] = $permission['title'];
+      }
+      //  Put permission names in alphabetical order by title.
+      asort($names);
+      return $names;
     }
-    
-    /**
-     *
-     * Returns HTML of permission machine and display ames in a table.
-     *
-     * @param $variables
-     * An associative array containing:
-     * - names: Array of human-readable names keyed by machine names.
-     *
-     * @ingroup themeable
-     *
-     */
+/**
+ *
+ * Returns HTML of permission machine and display names in a table.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - names: Array of human-readable names keyed by machine names.
+ *
+ * @ingroup themeable
+ */
     function theme_xray_permission_names($variables) {
-        $names = $variables['names'];
-        $output = '';
-        $header = array(t('Permission title'), t*('Permission machine name'));
-        $rows = array();
-        foreach ($names as $machine_name => $title) {
-            $rows[] = array($title, $machine_name);
-        }
-        $output .= theme('table', array('header' => $header, 'rows' => $rows, 'attributes' => array('id' => 'xray-permission-names')));
-        return $output;
-    }
-    
-    /**
-     *
-     * Implements hook_theme().
-     *
-     */
-    function xray_theme() {
-        return array(
-            'xray_permission_names' => array(
-                'render element' => 'names',
-            ),
+      $names = $variables['names'];
+      $output = '';
+      $header = array(t('Permission title'), t('Permission machine names'));
+      $rows = array();
+      foreach ($names as $machine_name => $title) {
+        $rows[] = array($title, $machine_name);
+      }
+      $output .= theme(
+        'table', array(
+          'header' => $header,
+          'rows' => $rows,
+          'attributes' => array(
+            'id' => 'xray-permission-names')
+          )
         );
+      return $output;
     }
+/**
+ *
+ * Implements hook_theme().
+ *
+ */
+    function xray_theme() {
+      return array(
+        'xray_permission_names' => array(
+          'render element' => 'names',
+        ),
+        'xray_show_page_callback' => array(
+          'variables' => array(
+            'page_callback' => NULL,
+            'include_file' => NULL,
+            'page_arguments' => NULL,
+          ),
+        ),
+      );
+    }
+/**
+ *
+ * Provide the page callback function (and other router item information.
+ *
+ */
+    function xray_show_page_callback () {
+      // Do not hand in the path; menu_get_itm() finds dynamic paths on its own
+      // but fails if handed help's $path variable which is node/% for node/1.
+      $router_item = menu_get_item();
+      // menu_get_item() can return null when called via drush command line.
+      if ($router_item) {
+        return theme('xray_show_page_callback', $router_item);
+      }
+    }
+/**
+ *
+ * Theme the page callback and optionally other elements of a router item.
+ *
+ */
+    function theme_xray_show_page_callback($variables) {
+      extract($variables, EXTR_SKIP);
+      $output = '';
+      $output .= '<p class="xray-help xray-page-callback">';
+      $output .= t('This page is brought to you by Charles Leverington, from The Definitive Guide to Drupal 7.');
+      if ($page_arguments) {
+        foreach ($page_arguments as $key => $value) {
+          $page_arguments[$key] = drupal_placeholders($value);
+        }
+        $output .= format_plural(count($page_arguments),
+          'the argument !arg handed to ',
+          'the arguments ! handed to ',
+          array('!arg' => xray_oxford_comma_list($page_arguments))
+        );
+      }
+      if ($include_file) {
+        $output .= t(' and the included file %file', array('%file' => $include_file));
+      }
+      $output .= '.</p>';
+      return $output;
+    }
+
+
     
-    
+    drupal_flush_all_caches();	
